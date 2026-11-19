@@ -123,6 +123,7 @@ button:focus-visible{outline:2px solid #6ec1ff;outline-offset:2px}
 .pv{flex:1;display:flex;flex-direction:column}
 .pv .frame{flex:1;margin:3cqw;display:grid;place-items:center;border:1px dashed #ffffff40;color:#ffffff90;font-size:3.4cqw;text-align:center}
 .pv .frame img{width:100%;height:100%;object-fit:contain}
+.pv .frame:has(img){border:0;margin:0 0 3cqw}
 .pv p{margin:0 4cqw 5cqw;font-size:3.6cqw;color:#d7dde2}
 .pv h3{margin:0 4cqw 1cqw;font:500 4.6cqw "Noto Sans KR"}
 /* 인트라넷 */
@@ -547,11 +548,11 @@ const CALLS={
 
 /* 갤러리: img 칸에 'img/파일명.jpg' 를 넣으면 사진이 들어갑니다 */
 const GALLERY=[
- {code:'2010',title:'가든의 그녀',cap:'6년 전 창립 파티. 그가 처음 본 뒷모습.',img:'',c:['#1d2a44','#7f93b8']},
- {code:'2012',title:'떠나던 공항',cap:'4년 전, 미국으로 떠나던 날의 출국장.',img:'',c:['#6b4a2e','#d8c3a0']},
- {code:'1990',title:'이름을 짓던 날',cap:'이름 한 글자를 고르고 또 고른, 밤새 쓴 붓글씨 연습지.',img:'',c:['#5e6f80','#f1ede4']},
- {code:'2016',title:'파티장의 그 여자',cap:'오늘 밤, 상원 글로벌 파티의 핑크빛 드레스.',img:'',c:['#d9748f','#fde2ea']},
- {code:'1950',title:'???가 보낸 사진',cap:'피난길, 두 사내가 나란히 선 흑백사진.',img:'',c:['#3a2a20','#b49a78']}
+ {code:'2010',title:'창 너머의 가든',cap:'6년 전 창립 파티. 그는 창 너머 가든에 선 한 사람만 보고 있었다.',img:'img/g2010.jpg',c:['#1d2a44','#7f93b8']},
+ {code:'2012',title:'떠나던 공항',cap:'4년 전, 미국으로 떠나던 날의 출국장.',img:'img/g2012.jpg',c:['#6b4a2e','#d8c3a0']},
+ {code:'1990',title:'이름을 짓던 날',cap:'4대 만에 태어난 딸. 갓난아기를 처음 품에 안아 든 날.',img:'img/g1990.jpg',c:['#5e6f80','#f1ede4']},
+ {code:'2016',title:'파티장의 그 여자',cap:'오늘 밤, 상원 글로벌 파티의 핑크빛 드레스.',img:'img/g2016.jpg',c:['#d9748f','#fde2ea']},
+ {code:'1950',title:'???가 보낸 사진',cap:'피난길, 서로를 부축해 폐허를 걷던 두 사내. 모든 약속은 여기서 시작됐다.',img:'img/g1950.jpg',c:['#3a2a20','#b49a78']}
 ];
 
 const INTRA={
@@ -678,7 +679,7 @@ function renderLists(){
   $$('#recent [data-x]').forEach(r=>r.addEventListener('click',()=>toast('없는 번호입니다')));
   $('#galCnt').textContent=found.size+' / '+GALLERY.length;
   $('#gal').innerHTML=GALLERY.map((g,i)=>{const s=SECRETS[g.code],p=PEOPLE[s.who],open=found.has(g.code);
-    const art=`<div class="art" style="background:${g.img&&open?`#000 url(${g.img}) center/cover`:`linear-gradient(160deg,${g.c[0]},${g.c[1]})`}">${g.img&&open?'':SILH}</div>`;
+    const art=`<div class="art" style="background:${g.img?`#000 url(${g.img}) center 20%/cover`:`linear-gradient(160deg,${g.c[0]},${g.c[1]})`}">${g.img?'':SILH}</div>`;
     return open?`<button class="tile" data-g="${i}">${art}<div class="cap"><b>${g.title}</b><span>${p.full}</span></div></button>`
       :`<button class="tile lock" data-g="${i}">${art}<div class="cap"><svg class="lk" viewBox="0 0 24 24"><path d="M18 8h-1V6A5 5 0 007 6v2H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V10a2 2 0 00-2-2zM9 6a3 3 0 016 0v2H9zm3 11a2 2 0 110-4 2 2 0 010 4z"/></svg><b>${p.name}</b><span>${p.hint}</span></div></button>`}).join('');
   $$('#gal .tile').forEach(t=>t.addEventListener('click',()=>{const g=GALLERY[t.dataset.g];
