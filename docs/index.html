@@ -128,9 +128,9 @@ button:focus-visible{outline:2px solid #6ec1ff;outline-offset:2px}
 .pv h3{margin:0 4cqw 1cqw;font:500 4.6cqw "Noto Sans KR"}
 /* 인트라넷 */
 #music{background:linear-gradient(#1b2330,#07090c)}
-.mart{flex:none;width:72cqw;aspect-ratio:1;margin:7cqw auto 0;border-radius:1.4cqw;position:relative;overflow:hidden;box-shadow:0 3cqw 7cqw #000c,0 0 0 1px #ffffff1a;background:radial-gradient(circle at 50% 34%,#111 0 4%,#e9b99a 4.5% 5.5%,#1a1a1a 6% 30%,#0b0b0b 30.5%),#0b0b0b}
-.mart img{position:absolute;left:4%;right:4%;bottom:6%;width:92%;height:auto;z-index:1;mix-blend-mode:lighten}
-.mart::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,#000a)}
+.mart{flex:none;width:72cqw;aspect-ratio:1;margin:7cqw auto 0;border-radius:1.4cqw;position:relative;overflow:hidden;box-shadow:0 3cqw 7cqw #000c,0 0 0 1px #ffffff1a;background:#0b0b0b;display:grid;place-items:center}
+.mart img{width:92%;height:auto;mix-blend-mode:lighten}
+.mnote{flex:none;text-align:center;font-size:3.2cqw;color:#cfe3f5;background:#3aa0e81f;border-bottom:1px solid #3aa0e840;padding:2cqw 4cqw}
 .mt{text-align:center;padding:5cqw 6cqw 0}
 .mt b{display:block;font:500 5cqw/1.3 "Noto Sans KR";color:#fff}
 .mt span{font-size:3.4cqw;color:#8fa0b0}
@@ -426,6 +426,7 @@ button:focus-visible{outline:2px solid #6ec1ff;outline-offset:2px}
       <!-- 음악 -->
       <section class="view" id="music">
         <div class="bar"><button class="back" data-back aria-label="뒤로"><svg viewBox="0 0 24 24"><use href="#gBack"/></svg></button><span class="ttl">음악</span><small>재생 목록</small></div>
+        <div class="mnote">재생을 누르면 YouTube Music으로 이동합니다</div>
         <div class="mart"><img src="img/cover.webp" alt=""></div>
         <div class="mt"><b>당신 휴대폰에 있던 노래</b><span>짐비 저장소 · YouTube Music</span></div>
         <div class="mbar"><i></i></div><div class="mtime"><span>0:00</span><span>--:--</span></div>
@@ -434,7 +435,6 @@ button:focus-visible{outline:2px solid #6ec1ff;outline-offset:2px}
           <a class="play" href="https://music.youtube.com/playlist?list=PLNPPWEVb0954&amp;si=OJcceO1yU_Lz8xwz&amp;drli=1" target="_blank" rel="noopener" aria-label="YouTube Music에서 재생"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
           <span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zM16 6h2v12h-2z"/></svg></span>
         </div>
-        <a class="mopen" href="https://music.youtube.com/playlist?list=PLNPPWEVb0954&amp;si=OJcceO1yU_Lz8xwz&amp;drli=1" target="_blank" rel="noopener">YouTube Music에서 듣기<small>새 창에서 재생 목록이 열립니다</small></a>
       </section>
 
       <!-- 인터넷 : 사내 인트라넷 -->
