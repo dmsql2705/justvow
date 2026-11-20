@@ -127,6 +127,23 @@ button:focus-visible{outline:2px solid #6ec1ff;outline-offset:2px}
 .pv p{margin:0 4cqw 5cqw;font-size:3.6cqw;color:#d7dde2}
 .pv h3{margin:0 4cqw 1cqw;font:500 4.6cqw "Noto Sans KR"}
 /* 인트라넷 */
+#music{background:linear-gradient(#1b2330,#07090c)}
+.mart{flex:none;width:72cqw;aspect-ratio:1;margin:7cqw auto 0;border-radius:1.4cqw;position:relative;overflow:hidden;box-shadow:0 3cqw 7cqw #000c,0 0 0 1px #ffffff1a;background:radial-gradient(circle at 50% 34%,#111 0 4%,#e9b99a 4.5% 5.5%,#1a1a1a 6% 30%,#0b0b0b 30.5%),#0b0b0b}
+.mart img{position:absolute;left:4%;right:4%;bottom:6%;width:92%;height:auto;z-index:1;mix-blend-mode:lighten}
+.mart::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,#000a)}
+.mt{text-align:center;padding:5cqw 6cqw 0}
+.mt b{display:block;font:500 5cqw/1.3 "Noto Sans KR";color:#fff}
+.mt span{font-size:3.4cqw;color:#8fa0b0}
+.mbar{margin:5cqw 7cqw 0;height:.8cqw;background:#ffffff22;border-radius:9px;position:relative}
+.mbar i{position:absolute;left:0;top:0;bottom:0;width:0;background:#3aa0e8;border-radius:9px}
+.mtime{display:flex;justify-content:space-between;margin:1.4cqw 7cqw 0;font:300 2.8cqw Roboto;color:#7d8893}
+.mctl{display:flex;justify-content:center;align-items:center;gap:9cqw;margin-top:4cqw}
+.mctl a,.mctl span{display:grid;place-items:center;color:#fff;text-decoration:none}
+.mctl svg{width:8cqw;fill:#cfd8e0}
+.mctl .play{width:17cqw;height:17cqw;border-radius:50%;background:linear-gradient(#4fb1f0,#1673c9);box-shadow:0 1.4cqw 3cqw #0009}
+.mctl .play svg{width:8cqw;fill:#fff;margin-left:1cqw}
+.mopen{display:block;margin:auto 6cqw 5cqw;padding:3.2cqw;text-align:center;border-radius:1.4cqw;background:#ffffff14;border:1px solid #ffffff2a;color:#fff;text-decoration:none;font:500 3.8cqw "Noto Sans KR",sans-serif}
+.mopen small{display:block;font-weight:300;font-size:2.8cqw;color:#8fa0b0;margin-top:.4cqw}
 #web{background:#eef1f4}
 .urlbar{flex:none;display:flex;align-items:center;gap:2cqw;padding:1.6cqw 2cqw;background:linear-gradient(#e9ecef,#cfd5da);border-bottom:1px solid #9aa4ae}
 .urlbar div{flex:1;background:#fff;border:1px solid #a9b3bc;border-radius:1cqw;padding:1.4cqw 2.4cqw;font:400 3.2cqw Roboto;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -336,7 +353,7 @@ button:focus-visible{outline:2px solid #6ec1ff;outline-offset:2px}
           <button class="app" data-open="gallery"><span class="ic c-gal"><svg viewBox="0 0 24 24"><path d="M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2zM8.5 13.5l2.5 3 3.5-4.5 4.5 6H5z"/></svg></span>갤러리</button>
           <button class="app" data-open="web"><span class="ic c-web"><svg viewBox="0 0 24 24"><use href="#gGlobe"/></svg></span>인터넷</button>
           <button class="app" data-toast="알람 07:00 · 출근 (대표님보다 먼저)"><span class="ic c-clk"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg></span>시계</button>
-          <button class="app" data-toast="재생 목록이 비어 있습니다"><span class="ic c-mus"><svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3z"/></svg></span>음악</button>
+          <button class="app" data-open="music"><span class="ic c-mus"><svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3z"/></svg></span>음악</button>
         </div>
         <div class="dots"><i></i><i class="on"></i><i></i></div>
         <div class="dock">
@@ -404,6 +421,20 @@ button:focus-visible{outline:2px solid #6ec1ff;outline-offset:2px}
       <section class="view" id="photo">
         <div class="bar"><button class="back" data-back aria-label="뒤로"><svg viewBox="0 0 24 24"><use href="#gBack"/></svg></button><span class="ttl" id="phTtl"></span></div>
         <div class="pv" id="pv"></div>
+      </section>
+
+      <!-- 음악 -->
+      <section class="view" id="music">
+        <div class="bar"><button class="back" data-back aria-label="뒤로"><svg viewBox="0 0 24 24"><use href="#gBack"/></svg></button><span class="ttl">음악</span><small>재생 목록</small></div>
+        <div class="mart"><img src="img/cover.webp" alt=""></div>
+        <div class="mt"><b>당신 휴대폰에 있던 노래</b><span>짐비 저장소 · YouTube Music</span></div>
+        <div class="mbar"><i></i></div><div class="mtime"><span>0:00</span><span>--:--</span></div>
+        <div class="mctl">
+          <span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6L18 18V6z"/></svg></span>
+          <a class="play" href="https://music.youtube.com/playlist?list=PLNPPWEVb0954&amp;si=OJcceO1yU_Lz8xwz&amp;drli=1" target="_blank" rel="noopener" aria-label="YouTube Music에서 재생"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+          <span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zM16 6h2v12h-2z"/></svg></span>
+        </div>
+        <a class="mopen" href="https://music.youtube.com/playlist?list=PLNPPWEVb0954&amp;si=OJcceO1yU_Lz8xwz&amp;drli=1" target="_blank" rel="noopener">YouTube Music에서 듣기<small>새 창에서 재생 목록이 열립니다</small></a>
       </section>
 
       <!-- 인터넷 : 사내 인트라넷 -->
