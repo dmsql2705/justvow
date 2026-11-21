@@ -119,6 +119,8 @@ button:focus-visible{outline:2px solid #6ec1ff;outline-offset:2px}
 .tile .cap span{color:#ffffffb0;font-size:2.8cqw}
 .tile.lock .cap{top:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:#0006;padding:3cqw}
 .tile .lk{width:8cqw;height:8cqw;fill:#fff;margin-bottom:1.6cqw;opacity:.9}
+.ghead{grid-column:1/-1;font-size:3.2cqw;color:#e9b99a;padding:2cqw 1cqw .6cqw;display:flex;justify-content:space-between}
+.ghead small{color:#7d8893;font-size:2.8cqw}
 .gnote{padding:2cqw 3cqw 4cqw;font-size:3cqw;color:#7d8893;text-align:center}
 .pv{flex:1;display:flex;flex-direction:column}
 .pv .frame{flex:1;margin:3cqw;display:grid;place-items:center;border:1px dashed #ffffff40;color:#ffffff90;font-size:3.4cqw;text-align:center}
@@ -586,6 +588,19 @@ const GALLERY=[
  {code:'1950',title:'???가 보낸 사진',cap:'피난길, 서로를 부축해 폐허를 걷던 두 사내. 모든 약속은 여기서 시작됐다.',img:'img/g1950.jpg',c:['#3a2a20','#b49a78']}
 ];
 
+/* 추가 이미지: 처음부터 열려 있음 */
+const EXTRA=[
+ {who:'gyeol',img:'img/x-gyeol1.jpg',title:'결재 서류 앞에서',cap:'펜을 돌리며 서류를 내려다보는 대표님. 이럴 때만큼은 말을 걸기가 어렵다.'},
+ {who:'gyeol',img:'img/x-gyeol2.jpg',title:'대표실, 문이 닫힌 뒤',cap:'회의실에서는 절대 보이지 않는 얼굴.'},
+ {who:'hakyung',img:'img/x-hakyung1.jpg',title:'샴페인 한 잔',cap:'파티장 한가운데, 누구보다 먼저 시선을 받는 사람.'},
+ {who:'hakyung',img:'img/x-hakyung2.jpg',title:'건배는 하지 않을래요',cap:'웃고 있지만, 잔은 끝내 부딪치지 않았다.'},
+ {who:'hakyung',img:'img/x-hakyung3.jpg',title:'내려다보는 눈',cap:'눈을 내리깐 채 머리카락을 넘기던 순간.'},
+ {who:'hyunwoo',img:'img/x-hyunwoo1.jpg',title:'도서관, 그 시절',cap:'책으로 얼굴을 덮고 잠든 너 옆에서, 그는 한 페이지도 넘기지 못했다.'},
+ {who:'hyunwoo',img:'img/x-hyunwoo4.jpg',title:'지갑 속 사진',cap:'4년 동안 버리지 못한 한 장.'},
+ {who:'hyunwoo',img:'img/x-hyunwoo2.jpg',title:'올려다보던 얼굴',cap:'그때는 이렇게 웃는 사람이었다.'},
+ {who:'hyunwoo',img:'img/x-hyunwoo3.jpg',title:'끝내 하지 못한 말',cap:'가슴께를 움켜쥔 손. 사과는 아직 목에 걸려 있다.'}
+];
+
 const INTRA={
  notice:[
   {t:'[공지] 12월 상원 글로벌 파티 대표실 수행 인원 안내',m:'총무팀 · 12.09',b:'대표실 수행 인원은 2명(윤 실장, 대표실 보좌)입니다. 복장은 블랙타이 기준.'},
@@ -709,11 +724,14 @@ function renderLists(){
    +`<button class="row" data-p="unknown">${av(PEOPLE.unknown)}<div><b>${PEOPLE.unknown.name}</b><span>저장되지 않은 번호</span></div></button>`;
   $$('#recent [data-x]').forEach(r=>r.addEventListener('click',()=>toast('없는 번호입니다')));
   $('#galCnt').textContent=found.size+' / '+GALLERY.length;
-  $('#gal').innerHTML=GALLERY.map((g,i)=>{const s=SECRETS[g.code],p=PEOPLE[s.who],open=found.has(g.code);
+  $('#gal').innerHTML=`<div class="ghead">히든 사진<small>비밀을 들으면 열립니다</small></div>`+GALLERY.map((g,i)=>{const s=SECRETS[g.code],p=PEOPLE[s.who],open=found.has(g.code);
     const art=`<div class="art" style="background:${g.img?`#000 url(${g.img}) center 20%/cover`:`linear-gradient(160deg,${g.c[0]},${g.c[1]})`}">${g.img?'':SILH}</div>`;
     return open?`<button class="tile" data-g="${i}">${art}<div class="cap"><b>${g.title}</b><span>${p.full}</span></div></button>`
-      :`<button class="tile lock" data-g="${i}">${art}<div class="cap"><svg class="lk" viewBox="0 0 24 24"><path d="M18 8h-1V6A5 5 0 007 6v2H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V10a2 2 0 00-2-2zM9 6a3 3 0 016 0v2H9zm3 11a2 2 0 110-4 2 2 0 010 4z"/></svg><b>${p.name}</b><span>${p.hint}</span></div></button>`}).join('');
-  $$('#gal .tile').forEach(t=>t.addEventListener('click',()=>{const g=GALLERY[t.dataset.g];
+      :`<button class="tile lock" data-g="${i}">${art}<div class="cap"><svg class="lk" viewBox="0 0 24 24"><path d="M18 8h-1V6A5 5 0 007 6v2H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V10a2 2 0 00-2-2zM9 6a3 3 0 016 0v2H9zm3 11a2 2 0 110-4 2 2 0 010 4z"/></svg><b>${p.name}</b><span>${p.hint}</span></div></button>`}).join('')
+   +`<div class="ghead">추가 이미지<small>${EXTRA.length}장</small></div>`+EXTRA.map((x,i)=>`<button class="tile" data-x="${i}"><div class="art" style="background:#000 url(${x.img}) center 25%/cover"></div><div class="cap"><b>${x.title}</b><span>${PEOPLE[x.who].full}</span></div></button>`).join('');
+  $$('#gal .tile[data-x]').forEach(t=>t.addEventListener('click',()=>{const x=EXTRA[t.dataset.x];
+    $('#phTtl').textContent=x.title;$('#pv').innerHTML=`<div class="frame"><img src="${x.img}" alt=""></div><h3>${x.title}</h3><p>${x.cap}</p>`;go('photo')}));
+  $$('#gal .tile[data-g]').forEach(t=>t.addEventListener('click',()=>{const g=GALLERY[t.dataset.g];
     if(t.classList.contains('lock')){toast('아직 볼 수 없는 사진입니다');return}
     $('#phTtl').textContent=g.title;
     $('#pv').innerHTML=`<div class="frame" style="${g.img?'':`background:linear-gradient(160deg,${g.c[0]},${g.c[1]})`}">${g.img?`<img src="${g.img}" alt="">`:'이미지가 들어갈 자리'}</div><h3>${g.title}</h3><p>${g.cap}</p>`;
